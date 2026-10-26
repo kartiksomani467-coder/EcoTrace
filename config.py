@@ -7,11 +7,12 @@ load_dotenv()
 
 
 def get_setting(key, default=None):
-    """Use Streamlit Cloud secrets, falling back to local environment variables."""
+    """Read Streamlit Cloud secrets, falling back to local .env."""
     try:
-        value = st.secrets.get(key)
-        if value is not None:
-            return value
+        if key in st.secrets:
+            value = st.secrets[key]
+            if value is not None:
+                return value
     except Exception:
         pass
 
