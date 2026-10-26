@@ -1,0 +1,85 @@
+
+erDiagram
+    CATEGORIES ||--o{ ITEMS : classifies
+    ITEMS ||--o{ INVENTORY_BATCHES : contains
+    INVENTORY_BATCHES ||--o{ USAGE_LOGS : records
+    INVENTORY_BATCHES ||--o{ STOCK_MOVEMENTS : tracks
+    SUPPLIERS ||--o{ PURCHASES : supplies
+    PURCHASES ||--o{ PURCHASE_ITEMS : contains
+    ITEMS ||--o{ PURCHASE_ITEMS : ordered_as
+
+    CATEGORIES {
+        int category_id PK
+        string category_name UK
+        string description
+        int default_shelf_life_days
+    }
+
+    ITEMS {
+        int item_id PK
+        string sku UK
+        string item_name
+        int category_id FK
+        string unit
+        boolean is_perishable
+        decimal reorder_level
+        boolean is_active
+    }
+
+    INVENTORY_BATCHES {
+        int batch_id PK
+        int item_id FK
+        string batch_code
+        decimal quantity_received
+        decimal quantity_available
+        date received_date
+        date expiry_date
+    }
+
+    USAGE_LOGS {
+        bigint usage_id PK
+        int batch_id FK
+        decimal quantity_consumed
+        datetime consumed_at
+    }
+
+    STOCK_MOVEMENTS {
+        bigint movement_id PK
+        int batch_id FK
+        string movement_type
+        decimal quantity
+        string reason
+        datetime movement_at
+    }
+
+    SUPPLIERS {
+        int supplier_id PK
+        string supplier_name
+        string contact_person
+        string phone
+        string email
+        string address
+    }
+
+    PURCHASES {
+        bigint purchase_id PK
+        int supplier_id FK
+        string reference_number UK
+        date purchase_date
+        string status
+    }
+
+    PURCHASE_ITEMS {
+        bigint purchase_item_id PK
+        bigint purchase_id FK
+        int item_id FK
+        decimal quantity_ordered
+        decimal quantity_received
+        decimal unit_cost
+    }
+
+    APP_SETTINGS {
+        string setting_key PK
+        string setting_value
+        string description
+    }
