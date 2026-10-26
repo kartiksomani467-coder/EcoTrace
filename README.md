@@ -19,7 +19,7 @@ EcoTrace is a database-driven inventory management application designed to track
 - **Programming Language:** Python
 - **User Interface:** Streamlit
 - **Database:** MySQL 8.0+
-- **Database Connectivity:** Python MySQL connector
+- **Database Connectivity:** Python MySQL Connector
 - **Development Environment:** Visual Studio Code
 - **Data Processing:** Pandas
 
@@ -60,12 +60,15 @@ EcoTrace/
 ├── requirements.txt
 ├── .env
 ├── .env.example
+├── .gitignore
 ├── README.md
 ├── assets/
 ├── modules/
 ├── services/
 └── tests/
 ```
+
+**Note:** The `.env` file contains local database configuration and should not be committed to GitHub. The `.env.example` file provides a template.
 
 ## 7. Prerequisites
 
@@ -91,21 +94,32 @@ cd C:\EcoTrace
 .\.venv\Scripts\Activate.ps1
 ```
 
+If the virtual environment has not been created, create it first:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
 ### Step 3: Configure database credentials
 
-Check the `.env` file and ensure it contains the correct MySQL connection settings expected by `config.py`. Keep credentials private and do not publish `.env`.
+Check the `.env` file and ensure it contains the correct MySQL connection settings expected by `config.py`.
+
+Keep database credentials private and do not publish the `.env` file.
 
 ### Step 4: Set up the database
 
-If the database has not already been initialized, use the project's database setup script:
+If the database has not already been initialized, run:
 
 ```powershell
 python setup_database.py
 ```
 
-This project has already been configured with its schema and sample data. Avoid rerunning setup unnecessarily if you are unsure whether it will modify existing data.
+This project has already been configured with its schema and sample data. Avoid rerunning the setup script unnecessarily if you are unsure whether it will modify existing data.
 
-### Step 5: Install dependencies if needed
+### Step 5: Install dependencies
+
+Install the required Python packages using:
 
 ```powershell
 python -m pip install -r requirements.txt
@@ -121,11 +135,11 @@ python -m streamlit run app.py --server.port 8503
 
 Open this address in your browser:
 
-http://localhost:8503
+**http://localhost:8503**
 
 Keep the terminal open while using the application.
 
-If the port is already occupied, use another available port, such as `8504`, and open the corresponding localhost address.
+If port `8503` is already occupied, use another available port, such as `8504`, and open the corresponding localhost address.
 
 ## 10. Testing
 
@@ -134,6 +148,7 @@ The following application functions have been tested during development:
 - Dashboard loading and database connectivity.
 - Product and category management.
 - Stock adjustment validation.
+- Prevention of stock adjustments that exceed available inventory.
 - Consumption and stock movement recording.
 - Supplier listing.
 - Inventory report CSV export.
@@ -151,3 +166,8 @@ Additional testing should be performed after any code changes.
 ## 12. Conclusion
 
 EcoTrace demonstrates how Python, Streamlit, and MySQL can be integrated to create a relational database application for inventory tracking, shelf-life monitoring, stock movement management, and reporting.
+
+---
+
+**Project:** EcoTrace — Micro-Logistics & Shelf-Life Tracker  
+**Technology Stack:** Python, Streamlit, MySQL, Pandas
